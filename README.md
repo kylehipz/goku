@@ -1,7 +1,11 @@
 # Goku - Pangmalakasan ang bira!
 
 # System Design
-![image](https://github.com/kylehipz/goku/assets/31435847/a76d08cf-db16-43ae-afe2-5a87a8e58018)
+![image](https://github.com/kylehipz/goku/assets/31435847/1255e98d-a985-4a90-ac30-ad62310921cd)
+
+# Database Design
+![image](https://github.com/kylehipz/goku/assets/31435847/ee6f4640-521a-47ac-8e87-d7ed8b479aa0)
+
 
 # Technologies Used
 * Frontend
