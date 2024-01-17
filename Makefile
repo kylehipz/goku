@@ -1,2 +1,2 @@
 run:
-	echo "HELLO"
+	docker compose up
