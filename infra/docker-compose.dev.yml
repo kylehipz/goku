@@ -4,6 +4,8 @@ services:
   # Application
 
   # Databases
+  # protocol://user:pass@host:port/db
+  # postgres://postgres:postgres@metadata-db:5432/metadata
   metadata-db:
     image: postgres
     restart: always
@@ -44,7 +46,17 @@ services:
       - $PWD/infra/auth.sql:/docker-entrypoint-initdb.d/init.sql
 
   # Caches
-      #
+  metadata-cache:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+  search-cache:
+    image: redis
+    restart: always
+    ports:
+      - 6380:6379
+
 volumes:
   metadata-db-volume:
   search-db-volume:
