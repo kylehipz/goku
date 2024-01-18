@@ -1,6 +1,33 @@
 version: "3.9"
 
 services:
+  # Application
+
+  # Databases
+  metadata-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: metadata
+    ports:
+      - 5432:5432
+    volumes:
+      - $PWD/infra/metadata.sql:/docker-entrypoint-initdb.d/metadata.sql
+
+  search-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: search
+    ports:
+      - 5433:5432
+    volumes:
+      - $PWD/infra/search.sql:/docker-entrypoint-initdb.d/search.sql
+
   auth-db:
     image: postgres
     restart: always
@@ -8,11 +35,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: auth
+    ports:
+      - 5434:5432
+    volumes:
+      - $PWD/infra/auth.sql:/docker-entrypoint-initdb.d/auth.sql
 
-  metadata-db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: auth
+  # Caches
