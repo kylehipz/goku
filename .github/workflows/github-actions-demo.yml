@@ -1,0 +1,18 @@
+name: Goku CI
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+run-name: ${{ github.actor }} is testing out Github Actions
+jobs:
+  Explore-Github-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello Kyle"
+      - run: echo "Hello Benj"
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
