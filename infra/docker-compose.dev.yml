@@ -1,6 +1,46 @@
 version: "3.9"
 
 services:
+  # Application
+  example-service:
+    build:
+      context: ../services/example
+    container_name: example-service
+    restart: always
+    ports:
+      - 8000:8000
+    env_file:
+      - ../services/example/.env.dev
+
+  # Databases
+  # protocol://user:pass@host:port/db
+  # postgres://postgres:postgres@metadata-db:5432/metadata
+  metadata-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: metadata
+    ports:
+      - 5432:5432
+    volumes:
+      - metadata-db-volume:/var/lib/postgresql/data
+      - $PWD/infra/metadata.sql:/docker-entrypoint-initdb.d/init.sql
+
+  search-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: search
+    ports:
+      - 5433:5432
+    volumes:
+      - search-db-volume:/var/lib/postgresql/data
+      - $PWD/infra/search.sql:/docker-entrypoint-initdb.d/init.sql
+
   auth-db:
     image: postgres
     restart: always
@@ -8,11 +48,26 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: auth
+    ports:
+      - 5434:5432
+    volumes:
+      - auth-db-volume:/var/lib/postgresql/data
+      - $PWD/infra/auth.sql:/docker-entrypoint-initdb.d/init.sql
 
-  metadata-db:
-    image: postgres
+  # Caches
+  metadata-cache:
+    image: redis
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: auth
+    ports:
+      - 6379:6379
+
+  search-cache:
+    image: redis
+    restart: always
+    ports:
+      - 6380:6379
+
+volumes:
+  metadata-db-volume:
+  search-db-volume:
+  auth-db-volume:
