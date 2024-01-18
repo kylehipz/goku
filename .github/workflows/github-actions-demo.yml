@@ -1,0 +1,9 @@
+name: Goku CI Demo
+on: [push]
+run-name: ${{ github.actor }} is testing out Github Actions
+jobs:
+  Explore-Github-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello Kyle"
+      - run: echo "Hello Benj"
