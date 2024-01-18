@@ -5,5 +5,5 @@ down:
 	docker compose -f infra/docker-compose.dev.yml down
 
 clean:
-	docker compose -f infra/docker-compose.dev.yml down --remove-orphans -v
+	docker compose -f infra/docker-compose.dev.yml down --remove-orphans --rmi all -v
 
