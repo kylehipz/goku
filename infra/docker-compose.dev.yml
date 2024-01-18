@@ -2,6 +2,17 @@ version: "3.9"
 
 services:
   # Application
+  example-service:
+    build:
+      context: ../services/example
+    container_name: example-service
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ../services/example:/app
+    env_file:
+      - ../services/example/.env.dev
 
   # Databases
   # protocol://user:pass@host:port/db
@@ -51,6 +62,7 @@ services:
     restart: always
     ports:
       - 6379:6379
+
   search-cache:
     image: redis
     restart: always
