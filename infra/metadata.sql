@@ -5,7 +5,6 @@ CREATE TABLE video_metadata (
   descripition VARCHAR(100) NOT NULL,
   url VARCHAR NOT NULL,
   tag VARCHAR(100),
-  upload_date TIMESTAMP DEFAULT NOW(),
-  FOREIGN KEY (owner) REFERENCES users(id)
+  upload_date TIMESTAMP DEFAULT NOW()
 )
 

@@ -14,7 +14,8 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - $PWD/infra/metadata.sql:/docker-entrypoint-initdb.d/metadata.sql
+      - metadata-db-volume
+      - $PWD/infra/metadata.sql:/docker-entrypoint-initdb.d/init.sql
 
   search-db:
     image: postgres
@@ -26,7 +27,8 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - $PWD/infra/search.sql:/docker-entrypoint-initdb.d/search.sql
+      - search-db-volume
+      - $PWD/infra/search.sql:/docker-entrypoint-initdb.d/init.sql
 
   auth-db:
     image: postgres
@@ -38,6 +40,12 @@ services:
     ports:
       - 5434:5432
     volumes:
-      - $PWD/infra/auth.sql:/docker-entrypoint-initdb.d/auth.sql
+      - auth-db-volume
+      - $PWD/infra/auth.sql:/docker-entrypoint-initdb.d/init.sql
 
   # Caches
+      #
+volumes:
+  metadata-db-volume:
+  search-db-volume:
+  auth-db-volume:
