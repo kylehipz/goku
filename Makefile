@@ -1,5 +1,5 @@
 dev:
-	docker compose -f infra/docker-compose.dev.yml up --attach example-service
+	docker compose -f infra/docker-compose.dev.yml up
 
 down:
 	docker compose -f infra/docker-compose.dev.yml down

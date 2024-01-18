@@ -34,11 +34,24 @@ async function start () {
   app.get("/", async (req, res) => {
     let source = "cache"
 
-    const dbResult = await pgClient.query('SELECT * FROM video_metadata')
+    await redisClient.set("metadata", JSON.stringify([
+      {
+        name:"Kyle",
+        age: 26
+      },
+      {
+        name:"Benj",
+        age: 26
+      },
+    ]))
 
-    const data = dbResult.rows
+    const data = await redisClient.get("metadata")
 
-    return res.json({ data, source })
+    // const dbResult = await pgClient.query('SELECT * FROM video_metadata')
+    //
+    // const data = dbResult.rows
+
+    return res.json({ data: JSON.parse(data), source })
   })
 
 
